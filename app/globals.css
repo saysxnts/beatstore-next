@@ -1381,14 +1381,15 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 @media (max-width: 640px) {
   .main-content { padding: 0 14px 60px; }
 
-  /* Header fixo no mobile */
+  /* Header esticado até o topo no mobile */
   .main-header {
-    margin-top: var(--nav-h);
-    height: 36vh;
-    min-height: 180px;
-    max-height: 280px;
+    margin-top: 0;
+    height: 45vh;
+    min-height: 220px;
+    max-height: 340px;
     position: relative;
     overflow: hidden;
+    padding-top: var(--nav-h);
   }
 
   .header-video {
@@ -1407,7 +1408,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   .price-button { font-size: 0.8rem; padding: 9px; }
   .tags-container { display: none; }
 
-  /* Player fixo no mobile — sem flutuar */
+  /* Player grudado no fundo do mobile */
   .sticky-player {
     position: fixed;
     bottom: 0; left: 0;
@@ -1419,6 +1420,12 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
     align-items: center;
     flex-wrap: nowrap;
     overflow: hidden;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .sticky-player.idle {
+    transform: translateY(100%);
   }
 
   .player-left {
