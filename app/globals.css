@@ -85,7 +85,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 .site-wrapper { position: relative; z-index: 1; }
 
 /* ============================================
-   TOP NAVBAR (substitui o hamburger)
+   TOP NAVBAR — SEM BORDA INFERIOR
    ============================================ */
 .top-navbar {
   position: fixed;
@@ -101,7 +101,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   background: rgba(8,8,8,0.85);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--border);
+  border-bottom: none; /* REMOVIDO */
 }
 
 .navbar-logo {
@@ -245,7 +245,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
     height: 100vh;
     background: rgba(10,10,10,0.97);
     backdrop-filter: blur(20px);
-    border-right: 1px solid var(--border);
+    border-right: none; /* REMOVIDO */
     z-index: 2100;
     padding-top: 80px;
     transition: left 0.4s cubic-bezier(0.16,1,0.3,1);
@@ -289,7 +289,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 }
 
 /* ============================================
-   HEADER / HERO VIDEO
+   HEADER / HERO VIDEO — SEM MARGEM, BORDA A BORDA
    ============================================ */
 .main-header {
   margin-top: var(--nav-h);
@@ -323,12 +323,12 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 .header-gif { display: none; }
 
 /* ============================================
-   MAIN CONTENT
+   MAIN CONTENT — FULL WIDTH, SEM PADDING LATERAL
    ============================================ */
 .main-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 24px 60px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 60px;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -342,6 +342,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   display: flex;
   align-items: baseline;
   gap: 12px;
+  padding: 0 24px; /* padding interno no header */
 }
 
 .beat-list-header p {
@@ -369,6 +370,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 0 24px; /* padding interno nos filtros */
 }
 
 .search-container {
@@ -446,41 +448,39 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 }
 
 /* ============================================
-   BEAT GRID
+   BEAT GRID — SEM GAP, BORDA A BORDA
    ============================================ */
 .beat-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 0; /* SEM ESPAÇO entre cards */
 }
 
 /* Remove header row */
 .beat-row.header { display: none !important; }
 
 /* ============================================
-   BEAT CARD
+   BEAT CARD — SEM BORDER-RADIUS, SEM BORDER, PREENCHIMENTO TOTAL
    ============================================ */
 .beat-row {
   display: flex;
   flex-direction: column;
   background: var(--bg-3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border: none; /* REMOVIDO */
+  border-radius: 0; /* REMOVIDO */
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.35s var(--transition),
               box-shadow 0.35s var(--transition),
-              border-color 0.35s;
+              background 0.35s;
   position: relative;
 }
 
 .beat-row:hover {
-  transform: translateY(-8px);
-  border-color: rgba(209,0,0,0.3);
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.6),
-    0 0 0 1px rgba(209,0,0,0.15),
-    0 0 40px rgba(209,0,0,0.08);
+  transform: none; /* sem levantar no hover — grid colado */
+  background: var(--bg-4);
+  box-shadow: inset 0 0 0 1px rgba(209,0,0,0.3);
+  z-index: 2;
 }
 
 /* ---- Cover area ---- */
@@ -583,7 +583,6 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   height: 3px;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   z-index: 4;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 /* ---- Card body ---- */
@@ -642,14 +641,14 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   padding: 12px 16px 16px;
   width: 100%;
   margin-top: auto;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255,255,255,0.04); /* mais sutil */
 }
 
 .price-button {
   width: 100%;
   background: var(--bg-4);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
   padding: 11px 16px;
   border-radius: var(--radius-sm);
   font-weight: 600;
@@ -666,18 +665,15 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 .price-button:hover {
   background: var(--accent);
-  border-color: var(--accent);
   color: #fff;
   box-shadow: 0 0 24px var(--accent-glow);
-  transform: translateY(-1px);
 }
 
 /* ---- Share button ---- */
 .beat-actions-cell {
-  display: none; /* oculto no grid — fica no hover overlay */
+  display: none;
 }
 
-/* Share btn repositioned inside card on hover */
 .beat-share-overlay {
   position: absolute;
   top: 12px;
@@ -772,7 +768,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 .no-results p { font-size: 1rem; color: var(--text-2); }
 
 /* ============================================
-   STICKY PLAYER
+   STICKY PLAYER — SEM BORDA, COLADO NO FUNDO
    ============================================ */
 .sticky-player {
   position: fixed;
@@ -785,10 +781,10 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   align-items: center;
   padding: 0 24px;
   gap: 24px;
-  background: rgba(10,10,10,0.92);
+  background: rgba(10,10,10,0.95);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-top: 1px solid var(--border);
+  border-top: none; /* REMOVIDO */
   transform: translateY(0);
   transition: transform 0.4s var(--transition), opacity 0.3s;
 }
@@ -814,7 +810,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   border-radius: var(--radius-sm);
   object-fit: cover;
   flex-shrink: 0;
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
 }
 
 .player-info h4 {
@@ -999,7 +995,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   height: 100vh;
   background: rgba(10,10,10,0.97);
   backdrop-filter: blur(24px);
-  border-left: 1px solid var(--border);
+  border-left: none; /* REMOVIDO */
   z-index: 5000;
   display: flex;
   flex-direction: column;
@@ -1014,7 +1010,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   justify-content: space-between;
   align-items: center;
   padding: 24px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .cart-header h3 {
@@ -1027,7 +1023,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 .close-cart-btn {
   background: var(--glass);
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
   color: var(--text);
   width: 34px;
   height: 34px;
@@ -1068,12 +1064,12 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   gap: 14px;
   padding: 14px;
   background: var(--bg-3);
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
   border-radius: var(--radius-md);
   transition: all 0.2s;
 }
 
-.cart-item:hover { border-color: rgba(255,255,255,0.12); }
+.cart-item:hover { background: var(--bg-4); }
 
 .cart-item-image {
   width: 52px;
@@ -1121,7 +1117,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 .cart-footer {
   padding: 20px 24px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255,255,255,0.04);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1217,7 +1213,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   top: 16px;
   right: 16px;
   background: var(--glass);
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
   color: var(--text-2);
   width: 32px;
   height: 32px;
@@ -1238,7 +1234,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   gap: 16px;
   margin-bottom: 24px;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .modal-header img {
@@ -1246,7 +1242,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   height: 72px;
   border-radius: var(--radius-md);
   object-fit: cover;
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
 }
 
 .modal-header h3 {
@@ -1263,7 +1259,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   align-items: center;
   justify-content: space-between;
   background: var(--bg-4);
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
   border-radius: var(--radius-md);
   padding: 16px 18px;
   cursor: pointer;
@@ -1282,8 +1278,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 }
 
 .license-option:hover {
-  border-color: rgba(209,0,0,0.4);
-  background: rgba(209,0,0,0.05);
+  background: rgba(209,0,0,0.08);
 }
 
 .license-option:hover::before { opacity: 1; }
@@ -1322,12 +1317,12 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 }
 
 /* ============================================
-   FOOTER
+   FOOTER — SEM BORDA
    ============================================ */
 .site-footer {
   text-align: center;
   padding: 60px 20px 80px;
-  border-top: 1px solid var(--border);
+  border-top: none; /* REMOVIDO */
   background: var(--bg);
   position: relative;
   z-index: 2999;
@@ -1347,7 +1342,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 1px solid var(--border);
+  border: none; /* REMOVIDO */
   color: var(--text-2);
   font-size: 1rem;
   transition: all 0.25s;
@@ -1355,7 +1350,6 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 .footer-socials a:hover {
   color: #fff;
-  border-color: var(--accent);
   background: rgba(209,0,0,0.15);
   transform: translateY(-3px);
   box-shadow: 0 8px 20px var(--accent-glow);
@@ -1375,11 +1369,14 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 }
 
 @media (max-width: 900px) {
-  .beat-list { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .beat-list { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
-  .main-content { padding: 0 14px 60px; }
+  .main-content { padding: 0 0 60px; }
+
+  .beat-list-header { padding: 0 14px; }
+  .filters-section { padding: 0 14px; }
 
   /* Header esticado até o topo no mobile */
   .main-header {
@@ -1399,8 +1396,8 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
     object-fit: cover;
   }
 
-  /* Beats grid */
-  .beat-list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  /* Beats grid — colado, sem gap */
+  .beat-list { grid-template-columns: repeat(2, 1fr); gap: 0; }
   .beat-title-cell { padding: 10px 12px 4px; }
   .beat-name { font-size: 0.9rem; }
   .beat-tags-cell { padding: 0 12px 8px; }
@@ -1408,7 +1405,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   .price-button { font-size: 0.8rem; padding: 9px; }
   .tags-container { display: none; }
 
-  /* Player grudado no fundo do mobile */
+  /* Player colado no fundo */
   .sticky-player {
     position: fixed;
     bottom: 0; left: 0;
