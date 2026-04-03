@@ -37,10 +37,10 @@ export default function RootLayout({ children }) {
                 muted
                 loop
                 playsInline
-                poster="/images/Composição 1.gif"
+                poster="/images/header.gif"
               >
                 <source src="/videos/header.mp4" type="video/mp4" />
-                <img src="/images/Composição 1.gif" alt="header gif" className="header-gif" />
+                <img src="/images/header.gif" alt="header gif" className="header-gif" />
               </video>
             </header>
 
