@@ -139,7 +139,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 .navbar-socials {
   display: flex;
-  gap: 12px;
+  gap: 4px;
   align-items: center;
 }
 
@@ -1380,6 +1380,25 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 @media (max-width: 640px) {
   .main-content { padding: 0 14px 60px; }
+
+  /* Header fixo no mobile */
+  .main-header {
+    margin-top: var(--nav-h);
+    height: 36vh;
+    min-height: 180px;
+    max-height: 280px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* Beats grid */
   .beat-list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .beat-title-cell { padding: 10px 12px 4px; }
   .beat-name { font-size: 0.9rem; }
@@ -1387,12 +1406,48 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   .beat-price-cell { padding: 10px 12px 12px; }
   .price-button { font-size: 0.8rem; padding: 9px; }
   .tags-container { display: none; }
-  .player-left { min-width: auto; }
+
+  /* Player fixo no mobile — sem flutuar */
+  .sticky-player {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: var(--player-h);
+    padding: 0 12px;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .player-left {
+    min-width: 0;
+    max-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .player-center {
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .custom-player-controls {
+    gap: 8px;
+  }
+
+  .timeline {
+    max-width: 100%;
+  }
+
   .time-display { display: none; }
   .volume-slider { display: none; }
-  .cart { width: 100%; right: -100%; }
-  .sticky-player { padding: 0 14px; gap: 12px; }
-  #player-cover { width: 40px; height: 40px; }
-  #player-title { font-size: 0.82rem; max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  #player-cover { width: 38px; height: 38px; }
+  #player-title { font-size: 0.8rem; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #player-producer { display: none; }
+
+  /* Cart fullscreen mobile */
+  .cart { width: 100%; right: -100%; }
 }
