@@ -1,14 +1,59 @@
 "use client";
 import { useStore } from "../context/StoreContext";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import LicenseModal from "./LicenseModal";
 
 export default function BeatItem({ beat }) {
   const { playBeat, currentBeat, isPlaying, showToast } = useStore();
   const [showLicenseModal, setShowLicenseModal] = useState(false);
+  const cardRef = useRef(null);
+  const glareRef = useRef(null);
+  const rafRef = useRef(null);
 
   const isCurrent = currentBeat?.id === beat.id;
   const beatCover = beat.coverUrl || beat.coverDriveId || beat.cover;
+
+  const TILT_MAX = 15; // graus máximos de inclinação
+
+  const handleMouseMove = useCallback((e) => {
+    if (!cardRef.current) return;
+    // Cancela o frame anterior para evitar acúmulo
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+
+    rafRef.current = requestAnimationFrame(() => {
+      const card = cardRef.current;
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      // Posição relativa do mouse dentro do card (0 a 1)
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      // Converte para rotação (-TILT_MAX a +TILT_MAX)
+      const rotateY = (x - 0.5) * TILT_MAX * 2;
+      const rotateX = (0.5 - y) * TILT_MAX * 2;
+
+      card.style.transform =
+        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+
+      // Glare / reflexo de luz
+      if (glareRef.current) {
+        glareRef.current.style.opacity = "1";
+        glareRef.current.style.background =
+          `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.12) 0%, transparent 60%)`;
+      }
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    const card = cardRef.current;
+    if (!card) return;
+    // Volta suavemente para a posição original
+    card.style.transform =
+      "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+    if (glareRef.current) {
+      glareRef.current.style.opacity = "0";
+    }
+  }, []);
 
   const handleShare = async (e) => {
     e.stopPropagation();
@@ -23,7 +68,15 @@ export default function BeatItem({ beat }) {
 
   return (
     <>
-      <article className={`beat-row animated-row visible ${isCurrent ? "playing" : ""}`}>
+      <article
+        ref={cardRef}
+        className={`beat-row animated-row visible tilt-card ${isCurrent ? "playing" : ""}`}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Glare overlay */}
+        <div ref={glareRef} className="tilt-glare" />
+
         <div className="beat-play-cell">
           <button
             className="play-pause-btn"

@@ -677,6 +677,26 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   position: relative;
 }
 
+/* ---- 3D Tilt Card ---- */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.45s cubic-bezier(0.03,0.98,0.52,0.99),
+              box-shadow 0.45s var(--transition),
+              border-color 0.45s;
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s;
+  mix-blend-mode: overlay;
+}
+
 /* Animated border gradient on hover */
 .beat-row::after {
   content: '';
@@ -689,13 +709,27 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   transition: opacity 0.5s;
 }
 
+/* Non-tilt fallback hover */
 .beat-row:hover {
-  transform: translateY(-10px) scale(1.01);
   border-color: rgba(209,0,0,0.4);
   box-shadow:
     0 24px 70px rgba(0,0,0,0.6),
     0 0 0 1px rgba(209,0,0,0.2),
     0 0 60px rgba(209,0,0,0.08);
+}
+
+/* Only apply translateY on non-tilt cards (JS overrides transform on .tilt-card) */
+.beat-row:not(.tilt-card):hover {
+  transform: translateY(-10px) scale(1.01);
+}
+
+/* Enhanced shadow when tilting */
+.tilt-card:hover {
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.7),
+    0 0 0 1px rgba(209,0,0,0.25),
+    0 0 80px rgba(209,0,0,0.1),
+    0 10px 40px rgba(209,0,0,0.06);
 }
 
 .beat-row:hover::after {
@@ -1950,6 +1984,13 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   .beat-row:hover {
     transform: translateY(-4px);
   }
+
+  /* Disable 3D tilt on touch/mobile */
+  .tilt-card {
+    transform-style: flat !important;
+    will-change: auto !important;
+  }
+  .tilt-glare { display: none; }
 }
 
 /* ============================================
