@@ -13,6 +13,9 @@ export const metadata = {
   description: "Official beat store",
 };
 
+const MARQUEE_TEXT = "SAYSXNTS · BEAT STORE · EXCLUSIVE BEATS · TRAP · DRILL · HIP-HOP · PREMIUM QUALITY · ";
+const HERO_MARQUEE_TEXT = " PROMO ALL $19,95 ";
+
 export default function RootLayout({ children }) {
   const paypalSrc = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`;
 
@@ -45,6 +48,15 @@ export default function RootLayout({ children }) {
               </video>
             </header>
 
+            {/* Hero marquee divider */}
+            <div className="hero-marquee">
+              <div className="marquee-track" style={{ animationDuration: '30s' }}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <span key={i}>{HERO_MARQUEE_TEXT}</span>
+                ))}
+              </div>
+            </div>
+
             {children}
           </div>
 
@@ -57,6 +69,7 @@ export default function RootLayout({ children }) {
                 href="https://www.instagram.com/saysxnts"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram"
               >
                 <i className="fab fa-instagram"></i>
               </a>
@@ -64,6 +77,7 @@ export default function RootLayout({ children }) {
                 href="https://www.youtube.com/@saysxnts"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="YouTube"
               >
                 <i className="fab fa-youtube"></i>
               </a>
