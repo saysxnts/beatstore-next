@@ -14,7 +14,7 @@ export const metadata = {
 };
 
 const MARQUEE_TEXT = "SAYSXNTS · BEAT STORE · EXCLUSIVE BEATS · TRAP · DRILL · HIP-HOP · PREMIUM QUALITY · ";
-const HERO_MARQUEE_TEXT = " PROMO ALL $19,95 ";
+const HERO_MARQUEE_TEXT = "PROMO ALL $19,95";
 
 export default function RootLayout({ children }) {
   const paypalSrc = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`;
