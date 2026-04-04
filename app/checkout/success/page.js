@@ -6,166 +6,233 @@ import Link from "next/link";
 export default function SuccessPage() {
   const { clearCart } = useStore();
 
-  // clearCart está envolvido em useCallback no StoreContext,
-  // então é seguro incluir nas dependências sem loop infinito.
   useEffect(() => {
     clearCart();
   }, [clearCart]);
 
   return (
-    <main className="success-container">
-      <div className="success-card fade-in-up">
-        <div className="glow-effect"></div>
+    <main className="suc-page">
+      <div className="suc-card">
+        <div className="suc-accent"></div>
+        <div className="suc-accent-v"></div>
+        <div className="suc-accent-br"></div>
+        <div className="suc-accent-br-v"></div>
 
-        <div className="icon-wrapper">
+        <div className="suc-glow"></div>
+
+        <div className="suc-icon">
           <i className="fas fa-check"></i>
+          <div className="suc-icon-ring"></div>
         </div>
 
-        <h1 className="title">PAYMENT SUCCESSFUL</h1>
-        <p className="subtitle">Welcome to the family.</p>
+        <h1 className="suc-title">PAYMENT SUCCESSFUL</h1>
+        <p className="suc-sub">Welcome to the family.</p>
 
-        <div className="divider"></div>
+        <div className="suc-divider"></div>
 
-        <div className="info-box">
-          <p className="main-info">
+        <div className="suc-info">
+          <div className="suc-info-accent"></div>
+          <p className="suc-info-main">
             <i className="fas fa-envelope-open-text"></i>
             Your download links have been sent to your{" "}
             <strong>PayPal email address</strong>.
           </p>
-          <p className="spam-note">
+          <p className="suc-info-note">
             (Check your spam folder if you don't see it within 2 minutes)
           </p>
         </div>
 
-        <Link href="/" className="back-btn">
+        <Link href="/" className="suc-btn">
           RETURN TO STORE
         </Link>
       </div>
 
       <style jsx>{`
-        .success-container {
+        .suc-page {
           min-height: 85vh;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: radial-gradient(circle at center, #1a1a1a 0%, #0f0f0f 100%);
           padding: 20px;
           position: relative;
-          overflow: hidden;
         }
-        .success-container::before {
-          content: "";
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23181818' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/G%3E%3C/svg%3E");
-        }
-        .success-card {
-          background: rgba(24, 24, 24, 0.8);
-          backdrop-filter: blur(10px);
-          padding: 50px 40px;
-          border-radius: 20px;
+
+        .suc-card {
+          background: rgba(19,19,19,0.9);
+          border: 1px solid rgba(255,255,255,0.06);
+          backdrop-filter: blur(16px);
+          padding: 52px 40px;
           text-align: center;
           max-width: 500px;
           width: 100%;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
           position: relative;
-          z-index: 2;
+          overflow: hidden;
+          animation: sucReveal 0.8s cubic-bezier(0.16,1,0.3,1) both;
         }
-        .glow-effect {
+
+        @keyframes sucReveal {
+          from { opacity: 0; transform: translateY(30px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Corner accents — L shapes */
+        .suc-accent {
           position: absolute;
-          top: -50px;
-          left: 50%;
+          top: 0; left: 0;
+          width: 50px; height: 2px;
+          background: #d10000;
+        }
+        .suc-accent-v {
+          position: absolute;
+          top: 0; left: 0;
+          width: 2px; height: 50px;
+          background: #d10000;
+        }
+        .suc-accent-br {
+          position: absolute;
+          bottom: 0; right: 0;
+          width: 50px; height: 2px;
+          background: #d10000;
+        }
+        .suc-accent-br-v {
+          position: absolute;
+          bottom: 0; right: 0;
+          width: 2px; height: 50px;
+          background: #d10000;
+        }
+
+        .suc-glow {
+          position: absolute;
+          top: -60px; left: 50%;
           transform: translateX(-50%);
-          width: 150px;
-          height: 150px;
-          background: #680000;
+          width: 200px; height: 200px;
+          background: rgba(209,0,0,0.06);
           filter: blur(80px);
-          opacity: 0.4;
-          z-index: -1;
+          pointer-events: none;
         }
-        .icon-wrapper {
-          width: 90px;
-          height: 90px;
-          background: linear-gradient(135deg, #680000 0%, #3a0000 100%);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto 25px;
-          font-size: 2.5rem;
-          color: white;
-          box-shadow: 0 10px 20px rgba(104, 0, 0, 0.3);
-          border: 2px solid rgba(255,255,255,0.1);
-        }
-        .title {
-          font-family: 'Inter', sans-serif;
-          font-size: 2.2rem;
-          font-weight: 800;
-          margin-bottom: 5px;
+
+        .suc-icon {
+          width: 80px; height: 80px;
+          background: linear-gradient(135deg, #d10000, #8a0000);
+          display: flex; align-items: center; justify-content: center;
+          margin: 0 auto 28px;
+          font-size: 2rem;
           color: #fff;
-          letter-spacing: -1px;
-          text-transform: uppercase;
+          position: relative;
+          box-shadow: 0 0 40px rgba(209,0,0,0.3);
         }
-        .subtitle {
-          color: #888;
-          font-size: 1.1rem;
-          margin-bottom: 30px;
+
+        .suc-icon-ring {
+          position: absolute;
+          inset: -10px;
+          border: 1px solid rgba(209,0,0,0.2);
+          animation: ringPulse 2s ease-in-out infinite;
         }
-        .divider {
-          height: 1px;
-          background: linear-gradient(90deg, transparent, #333, transparent);
-          margin-bottom: 30px;
+
+        @keyframes ringPulse {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(1.05); }
         }
-        .info-box {
-          background: rgba(0, 0, 0, 0.3);
-          padding: 20px;
-          border-radius: 10px;
-          border: 1px solid #222;
-          margin-bottom: 35px;
-        }
-        .main-info {
-          color: #ccc;
-          font-size: 1rem;
-          line-height: 1.6;
+
+        .suc-title {
+          font-family: var(--font-display, 'Syne', sans-serif);
+          font-size: 1.8rem;
+          font-weight: 800;
+          color: #fff;
           margin-bottom: 8px;
+          letter-spacing: 4px;
+          animation: sucTitleIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
         }
-        .main-info i {
-          color: #680000;
-          margin-right: 10px;
+
+        @keyframes sucTitleIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .main-info strong { color: #fff; }
-        .spam-note {
-          font-size: 0.85rem;
-          color: #666;
+
+        .suc-sub {
+          color: #555;
+          font-size: 0.95rem;
+          margin-bottom: 28px;
+          letter-spacing: 1px;
           font-style: italic;
         }
-        .back-btn {
+
+        .suc-divider {
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(209,0,0,0.2), transparent);
+          margin-bottom: 28px;
+        }
+
+        .suc-info {
+          background: rgba(0,0,0,0.3);
+          padding: 20px;
+          border: 1px solid rgba(255,255,255,0.04);
+          margin-bottom: 32px;
+          text-align: left;
+          position: relative;
+        }
+
+        .suc-info-accent {
+          position: absolute;
+          top: 0; left: 0;
+          width: 2px; height: 100%;
+          background: #d10000;
+        }
+
+        .suc-info-main {
+          color: #999;
+          font-size: 0.88rem;
+          line-height: 1.7;
+          margin-bottom: 8px;
+        }
+
+        .suc-info-main i { color: #d10000; margin-right: 10px; }
+        .suc-info-main strong { color: #fff; }
+
+        .suc-info-note {
+          font-size: 0.78rem;
+          color: #444;
+          font-style: italic;
+          padding-left: 26px;
+        }
+
+        .suc-btn {
           display: block;
           width: 100%;
-          background: #f1f1f1;
-          color: #0f0f0f;
+          background: #fff;
+          color: #060606;
           padding: 16px;
-          border-radius: 8px;
           text-decoration: none;
           font-weight: 800;
+          font-size: 0.75rem;
           text-transform: uppercase;
-          letter-spacing: 1px;
-          transition: all 0.3s ease;
+          letter-spacing: 3px;
+          transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+          position: relative;
+          overflow: hidden;
         }
-        .back-btn:hover {
-          background: #680000;
-          color: white;
+
+        .suc-btn::after {
+          content: '';
+          position: absolute;
+          top: 0; left: -100%;
+          width: 60%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(209,0,0,0.15), transparent);
+          transition: left 0.5s;
+        }
+
+        .suc-btn:hover {
+          background: #d10000;
+          color: #fff;
+          box-shadow: 0 0 50px rgba(209,0,0,0.3);
           transform: translateY(-2px);
-          box-shadow: 0 10px 20px rgba(104, 0, 0, 0.2);
         }
-        .fade-in-up {
-          animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        @keyframes fadeInUp {
-          to { opacity: 1; transform: translateY(0); }
+
+        .suc-btn:hover::after { left: 120%; }
+
+        @media (max-width: 640px) {
+          .suc-card { padding: 40px 24px; }
+          .suc-title { font-size: 1.4rem; letter-spacing: 2px; }
         }
       `}</style>
     </main>
