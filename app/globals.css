@@ -288,7 +288,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.7);
-    z-index: 2099;
+    z-index: 2050;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
@@ -1349,7 +1349,7 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   border-top: 1px solid var(--border);
   background: var(--bg);
   position: relative;
-  z-index: 2999;
+  z-index: 1;
 }
 
 .footer-socials {
