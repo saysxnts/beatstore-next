@@ -1399,52 +1399,33 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
 
 @media (max-width: 640px) {
 
-  /* ── Reset de margens/bordas globais no mobile ── */
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    width: 100%;
-  }
-
-  body {
-    padding-bottom: var(--player-h);
-  }
-
-  /* ── Navbar: edge-to-edge ── */
+  /* ── Navbar fixa no topo (já é fixed, só garante) ── */
   .top-navbar {
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
-    padding: 0 12px;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+    z-index: 2000;
   }
 
-  /* ── Header: começa no topo absoluto da tela ── */
+  /* ── Header normal (scroll) ── */
   .main-header {
-    margin-top: 0;
-    padding-top: var(--nav-h);
-    height: 48vh;
-    min-height: 240px;
-    max-height: 360px;
+    margin-top: var(--nav-h);
+    height: 38vh;
+    min-height: 200px;
+    max-height: 300px;
     position: relative;
     overflow: hidden;
-    width: 100vw;
-    margin-left: 0;
-    margin-right: 0;
   }
 
   .header-video {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
-  /* ── Conteúdo ── */
-  .main-content { padding: 0 14px 60px; }
-  .site-wrapper { margin: 0; padding: 0; }
+  /* ── Conteúdo normal ── */
+  .main-content { padding: 0 14px calc(var(--player-h) + 16px); }
 
   /* ── Beats grid ── */
   .beat-list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -1455,42 +1436,14 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   .price-button { font-size: 0.8rem; padding: 9px; }
   .tags-container { display: none; }
 
-  /* ── Player: edge-to-edge no fundo ── */
+  /* ── Player no fundo ── */
   .sticky-player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    height: var(--player-h);
     padding: 0 12px;
     gap: 10px;
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    border-radius: 0;
-    margin: 0;
-    border-left: none;
-    border-right: none;
   }
-
-  .sticky-player.idle {
-    transform: translateY(100%);
-  }
-
-  .player-left {
-    min-width: 0;
-    max-width: 130px;
-    flex-shrink: 0;
-  }
-
-  .player-center {
-    flex: 1;
-    min-width: 0;
-    gap: 4px;
-  }
-
+  .sticky-player.idle { transform: translateY(100%); }
+  .player-left { min-width: 0; max-width: 130px; flex-shrink: 0; }
+  .player-center { flex: 1; min-width: 0; gap: 4px; }
   .custom-player-controls { gap: 8px; }
   .timeline { max-width: 100%; }
   .time-display { display: none; }
@@ -1499,26 +1452,30 @@ a, button { -webkit-tap-highlight-color: transparent; text-decoration: none; }
   #player-title { font-size: 0.8rem; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #player-producer { display: none; }
 
-  /* ── Side menu: edge-to-edge ── */
-  .side-menu {
-    left: -100vw;
-    width: 75vw;
-    border-radius: 0;
-    border-left: none;
+  /* ── Carrinho: esconde o da navbar, mostra flutuante ── */
+  .navbar-cart-btn { display: none !important; }
+
+  .cart-button-fixed {
+    display: flex !important;
+    position: fixed !important;
+    bottom: calc(var(--player-h) + 16px) !important;
+    right: 16px !important;
+    top: auto !important;
+    z-index: 3100 !important;
+    width: 52px !important;
+    height: 52px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 4px 20px var(--accent-glow) !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
-  .side-menu.open {
-    left: 0;
-  }
+  .cart-button-fixed span { display: none !important; }
 
-  /* ── Cart: fullscreen ── */
-  .cart {
-    width: 100vw;
-    right: -100vw;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
-
+  /* ── Cart fullscreen ── */
+  .cart { width: 100vw; right: -100vw; }
   .cart.show { right: 0; }
 }
